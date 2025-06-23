@@ -1,1 +1,36 @@
+import csv
 
+def read_sales_data(filename):
+    """
+    Reads sales data from a CSV file, skipping the header.
+
+    Args:
+        filename (str): The name of the CSV file.
+
+    Returns:
+        list: A list of strings, where each string is a transaction line.
+    """
+    transactions = []
+    with open(filename, 'r') as csvfile:
+        reader = csv.reader(csvfile)
+        next(reader)  # Skip the header row
+        for row in reader:
+            transactions.append(','.join(row))  # Join the list of strings back into a comma-separated string
+    return transactions
+
+# Create a dummy sales.csv file for demonstration
+with open('sales.csv', 'w') as f:
+    b=f.write('product_id,date,price,quantity\n')
+    b=f.write('P-01,2023-01-01,9.95,5\n')
+    b=f.write('P-02,2023-01-02,10.50,2\n')
+    b=f.write('P-01,2023-01-03,9.85,4\n')
+    b=f.write('P-02,2023-01-04,10.60,3\n')
+    b=f.write('P-01,2023-01-05,9.95,1\n')
+
+# Main program
+filename = 'sales.csv'
+sales_transactions = read_sales_data(filename)
+
+# Display the transaction lines
+for transaction in sales_transactions:
+    print(transaction)
